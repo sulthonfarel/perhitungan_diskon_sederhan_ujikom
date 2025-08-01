@@ -1,14 +1,25 @@
 <?php
+include 'koneksi.php';
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $harga = $_POST['harga'];
+    $id_barang = $_POST['id_barang'];
     $diskon = $_POST['diskon'];
 
-    // Validasi input
-    if ($diskon >= 100){
+    // Ambil data barang dari database
+    $query = mysqli_query($conn, "SELECT * FROM barang WHERE id_barang='$id_barang'");
+    $barang = mysqli_fetch_assoc($query);
+    if (!$barang) {
         $error = true;
     } else {
-        $diskon_amount = $harga * ($diskon/100);
-        $harga_after_diskon = $harga - $diskon_amount;
+        $harga = $barang['harga'];
+        // Validasi input
+        if ($diskon >= 100){
+            $error = true;
+        } else {
+            $diskon_amount = $harga * ($diskon/100);
+            $harga_after_diskon = $harga - $diskon_amount;
+            // Simpan ke tabel transaksi
+            $insert = mysqli_query($conn, "INSERT INTO transaksi (id_barang, diskon, harga_setelah_diskon) VALUES ('$id_barang', '$diskon', '$harga_after_diskon')");
+        }
     }
 } else {
     header('location:index.php');
@@ -29,14 +40,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="col-md-3"></div>
             <div class="col-md-6">
                 <?php if (!empty($error)): ?>
-                    <div class="alert alert-danger"> Diskon Tidak Boleh Kosong</div>
-                    <a href="index.php" class="btn bnt-secondary">Kembali</a>
+                    <div class="alert alert-danger"> Terjadi kesalahan atau diskon tidak valid.</div>
+                    <a href="index.php" class="btn btn-secondary">Kembali</a>
                 <?php else: ?>
                     <h2>Hasil Perhitungan Diskon</h2>
+                    <p>Nama Barang: <?= htmlspecialchars($barang['nama_barang']) ?></p>
                     <p>Harga Awal: Rp. <?=  number_format($harga, 0, ',', '.')?></p>
-                    <p>Diskon: <?= $diskon ?></p>
+                    <p>Diskon: <?= $diskon ?>%</p>
                     <p>Diskon Amount: Rp. <?=  number_format($diskon_amount, 0, ',', '.')?></p>
-                    <p>Harga after diskon: Rp. <?=  number_format($harga_after_diskon, 0, ',', '.')?></p>
+                    <p>Harga setelah diskon: Rp. <?=  number_format($harga_after_diskon, 0, ',', '.')?></p>
+                    <div class="alert alert-success mt-3">Data transaksi berhasil disimpan!</div>
                 <?php endif; ?>
             </div>
             <div class="col-md-3"></div>
