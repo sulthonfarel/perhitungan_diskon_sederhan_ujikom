@@ -2,9 +2,9 @@ CREATE DATABASE db_diskon;
 USE db_diskon;
 
 CREATE TABLE barang (
-    id_barang INT AUTO AUTO_INCREMENT PRIMARY KEY,
+    id_barang INT AUTO_INCREMENT PRIMARY KEY,
     nama_barang VARCHAR(100),
-    harga INT NOT NULL,
+    harga INT NOT NULL
 );
 
 CREATE TABLE transaksi (
