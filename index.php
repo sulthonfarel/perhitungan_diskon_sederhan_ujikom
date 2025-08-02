@@ -21,7 +21,7 @@ $barang = mysqli_query($koneksi, "SELECT * FROM barang");
                     <div class="form-group">
                         <label for="id_barang">Pilih Barang : </label>
                         <select class="form-control mb-3" id="id_barang" name="id_barang" required>
-                            <option value="">-- Pilih Barang --</option>
+                            <option value="">--Pilih  Barang --</option>
                             <?php while($row = mysqli_fetch_assoc($barang)): ?>
                                 <option value="<?= $row['id_barang'] ?>"> <?= $row['nama_barang'] ?> (Rp. <?= number_format($row['harga'],0,',','.') ?>) </option>
                             <?php endwhile; ?>
