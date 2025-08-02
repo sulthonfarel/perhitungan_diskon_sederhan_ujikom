@@ -15,3 +15,8 @@ CREATE TABLE transaksi (
     tanggal DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_barang) REFERENCES barang(id_barang)
 );
+
+INSERT INTO barang (id_barang, nama_barang, harga) VALUES
+(1, 'Pensil', 3000),
+(2, 'Buku', 8000),
+(3, 'Penghapus', 2000);

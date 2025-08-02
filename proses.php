@@ -5,7 +5,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $diskon = $_POST['diskon'];
 
     // Ambil data barang dari database
-    $query = mysqli_query($conn, "SELECT * FROM barang WHERE id_barang='$id_barang'");
+    $query = mysqli_query($koneksi, "SELECT * FROM barang WHERE id_barang='$id_barang'");
     $barang = mysqli_fetch_assoc($query);
     if (!$barang) {
         $error = true;
@@ -18,7 +18,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $diskon_amount = $harga * ($diskon/100);
             $harga_after_diskon = $harga - $diskon_amount;
             // Simpan ke tabel transaksi
-            $insert = mysqli_query($conn, "INSERT INTO transaksi (id_barang, diskon, harga_setelah_diskon) VALUES ('$id_barang', '$diskon', '$harga_after_diskon')");
+            $insert = mysqli_query($koneksi, "INSERT INTO transaksi (id_barang, diskon, harga_setelah_diskon) VALUES ('$id_barang', '$diskon', '$harga_after_diskon')");
         }
     }
 } else {

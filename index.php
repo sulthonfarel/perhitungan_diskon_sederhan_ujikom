@@ -1,6 +1,6 @@
 <?php
 include 'koneksi.php';
-$barang = mysqli_query($conn, "SELECT * FROM barang");
+$barang = mysqli_query($koneksi, "SELECT * FROM barang");
 ?>
 <!DOCTYPE html>
 <html lang="en">
