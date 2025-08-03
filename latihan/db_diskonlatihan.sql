@@ -1,5 +1,5 @@
-CREATE DATABASE db_diskon;
-USE db_diskon;
+CREATE DATABASE db_diskonlatihan;
+USE db_diskonlatihan;
 
 CREATE TABLE barang (
     id_barang INT AUTO_INCREMENT PRIMARY KEY,
@@ -10,14 +10,13 @@ CREATE TABLE barang (
 CREATE TABLE transaksi (
     id_transaksi INT AUTO_INCREMENT PRIMARY KEY,
     id_barang INT,
-    nama_barang VARCHAR(100),
-    diskon INT NOT NULL,
+    diskon INT,
     harga_setelah_diskon INT,
     tanggal DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_barang) REFERENCES barang(id_barang)
 );
 
-INSERT INTO barang (id_barang, nama_barang, harga) VALUES
+insert into barang (id_barang, nama_barang, harga) values
 (1, 'Pensil', 3000),
 (2, 'Buku', 8000),
 (3, 'Penghapus', 2000);
